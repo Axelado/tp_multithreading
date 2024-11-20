@@ -1,25 +1,37 @@
 name: Github Action
+
 on: [push]
 
 jobs:
   uv-example:
-    name: python
-    runs-on: ubuntu-latest
+    name: Python Tests on ${{ matrix.os }} with Python ${{ matrix.python-version }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest] # Test on both Ubuntu and macOS
+        python-version:
+          - "3.8"
+          - "3.9"
+          - "3.10"
+          - "3.11"
+          - "3.12"
+          - "3.13"
+    runs-on: ${{ matrix.os }}
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
       - name: Install uv
         uses: astral-sh/setup-uv@v3
 
-      - name: Set up Python
-        run: uv python install
+      - name: Set up Python ${{ matrix.python-version }}
+        run: uv python install ${{ matrix.python-version }}
 
-      - name: Install the project
+      - name: Install the project dependencies
         run: uv sync --all-extras --dev
 
-      - name: Run pre-commit
+      - name: Run pre-commit hooks
         run: uv run pre-commit run -a
 
-      - name: Run unittest
+      - name: Run Python Unit Tests
         run: uv run python -m unittest
