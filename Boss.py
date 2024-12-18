@@ -19,7 +19,7 @@ if __name__ == "__main__":
     boss = Boss()
     nb_job = 10
     for i in range(nb_job):
-        boss.create_job(i)
+        boss.create_job(i, 1000)
         print(f"job {i} create")
 
     for i in range(nb_job):
