@@ -8,10 +8,10 @@ class Minion(QueueClient):
     def do_job(self):
         task = self.task_queue.get()
         id = task.get_identifier()
-        work = task.work()
-        print(f"job {id}, take by a minion. result {work}")
-        result = (id, work)
-        self.result_queue.put(result)
+        task.work()
+        time = task.get_time()
+        print(f"job {id}, exécuté par un minion. Temps d'exécution : {time}")
+        self.result_queue.put(task)
 
 
 if __name__ == "__main__":

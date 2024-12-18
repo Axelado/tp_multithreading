@@ -27,6 +27,12 @@ class Task:
     def get_identifier(self):
         return self.identifier
 
+    def get_result(self):
+        return self.x
+
+    def get_time(self):
+        return self.time
+
     def to_json(self) -> str:
         data = {
             "identifier": self.identifier,
