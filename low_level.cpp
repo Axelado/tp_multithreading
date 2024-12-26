@@ -46,7 +46,7 @@ int main() {
 
         // Résoudre le système linéaire Ax = b
         clock_t t1 = clock();
-        Eigen::VectorXd X = A.colPivHouseholderQr().solve(B);
+        Eigen::VectorXd X = A.llt().solve(B); // Pour la version LL^T
         clock_t t2 = clock();
         double time = (double)(t2 - t1) / CLOCKS_PER_SEC;
 
