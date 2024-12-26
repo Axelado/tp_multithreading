@@ -24,8 +24,8 @@ class QueueClient:
 
 
 if __name__ == "__main__":
-    task_queue = Queue(20)
-    result_queue = Queue(20)
+    task_queue = Queue(100)
+    result_queue = Queue(100)
     QueueManager.register("get_task_queue", callable=lambda: task_queue)
     QueueManager.register("get_result_queue", callable=lambda: result_queue)
 
